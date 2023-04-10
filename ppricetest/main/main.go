@@ -13,7 +13,7 @@ func main() {
 		SetHeader("X-CMC_PRO_API_KEY", "")
 
 	//path := "/v2/cryptocurrency/quotes/latest?id=6756"
-	path := "/v2/cryptocurrency/quotes/latest?symbol=ACA"
+	path := "/v2/cryptocurrency/quotes/latest?slug=standard-protocol"
 	res, err := r.R().
 		SetContext(context.Background()).
 		SetResult(&CmcResp{}).
@@ -29,7 +29,7 @@ func main() {
 }
 
 type CmcResp struct {
-	Data TokenQuotes
+	Data map[string]Slug
 }
 
 type Quote struct {
@@ -41,3 +41,8 @@ type TokenQuote struct {
 }
 
 type TokenQuotes map[string][]TokenQuote
+
+type Slug struct {
+	Id    uint64
+	Quote map[string]Quote
+}
